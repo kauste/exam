@@ -1,0 +1,33 @@
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+body{
+    font-family: 'IM Fell English SC', serif;
+    font-size: 17px !important;
+}
+.controls{
+    display:flex;
+    column-gap:20px;
+    align-items: center;
+}
+.form-row{
+    justify-content: space-evenly;
+    margin: 20px
+}
+.message{
+    box-sizing: border-box;
+    height:30px;
+    background-color: rgb(57, 124, 58);
+    border: rgb(0, 0, 0);
+    margin: 0 0 20px 0;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.img{
+    width:80px;
+    height:80px;
+    object-fit: contain;
+}
