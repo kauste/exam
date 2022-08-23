@@ -91,6 +91,11 @@
                                 </a>
                             </div>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{route('back-order-list')}}">
+                                Orders
+                            </a>
+                        </li>
 
 
                         @elseif(Auth::user()->role == 1)

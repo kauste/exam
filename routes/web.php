@@ -42,6 +42,8 @@ Route::middleware('role:admin')->group(function () {
     Route::post('/dish/store', [DishController::class, 'store'])->name('dish-store');
     Route::get('/dish/edit/{dish}', [DishController::class, 'edit'])->name('dish-edit');   
     Route::delete('/dish/delete/{dish}', [DishController::class, 'destroy'])->name('dish-delete');
+
+    Route::get('/back-order-list', [OrderController::class, 'backOrder'])->name('back-order-list');
 });
 Route::put('/dish/update/{dish}', [DishController::class, 'update'])->name('dish-update')->middleware('role:admin');
 

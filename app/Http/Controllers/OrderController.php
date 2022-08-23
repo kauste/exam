@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    public function backOrder(){
+        $orders = Order::all();
+        foreach($orders as $order){
+            $order->cart = json_decode($order->cart);
+        }
+        dump($order->toArray());
+        return view('back.order.index', ['orders'=> $orders, 'states' => Order::STATES]);
+    }
     public function addToCart (Request $request, $id){
 
         $orderInProgress =  $request->session()->get('items', []);
@@ -20,19 +28,21 @@ class OrderController extends Controller
     public function showCart(Request $request){
         $cart = $request->session()->get('items', []);
         
-        $ids = array_column($cart, 'dish');
+        $ids = array_column($cart, 'dish_id');
 
         $dishes = Dish::whereIn('id', $ids)->get()->toArray();
 
-        foreach($cart as &$item){
+        foreach($cart as &$item){          
             foreach($dishes as $dish){
-                if($item['dish'] == $dish['id']){
+                
+                if($item['dish_id'] == $dish['id']){
                     $item['dish_name'] = $dish['dish_name'];
+                    
                 }
             }   
         }
-        dump($cart);
-        
+
+
         return view('front.cart', ['cart'=> $cart]);
     }
 
