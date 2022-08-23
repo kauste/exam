@@ -11,10 +11,8 @@ class OrderController extends Controller
 {
     public function backOrder(){
         $orders = Order::all();
-        foreach($orders as $order){
-            $order->cart = json_decode($order->cart);
-        }
-        dump($order->toArray());
+
+
         return view('back.order.index', ['orders'=> $orders, 'states' => Order::STATES]);
     }
     public function addToCart (Request $request, $id){
