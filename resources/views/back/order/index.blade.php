@@ -2,43 +2,58 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        @forelse($orders as $item)
-        <div class="card col-6 justify-content-center">
+        <div class="card col-8 justify-content-center">
             <div class="card-header">
-                <h1>Person cart</h1>
+                <h1>My orders</h1>
             </div>
-            <div class="card-body ">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Dish</th>
-                            <th cope="col">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <form method="post" action="{{route('order')}}">
-                            @foreach($item['cart'] as $cart)
-                    
+            @forelse($orders as $order)
+            <div class="card m-2 justify-content-center">
+                <div class="card-header">
+                    <h1>{{$order->user}} cart</h1>
+                </div>
+                <div class="card-body ">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Dish</th>
+                                <th cope="col">Amount</th>
+                                <th cope="col">Restaurant</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach($order['cart'] as $cart)
+                            <tr>
+                                <th scope="col">{{$cart['dish_name'] ?? 'Not availible'}}</th>
+                                <th cope="col">{{$cart['amount']}}</th>
+                                <td cope="col">{{$cart['restaurant'] ?? 'Not availible'}}</td>
+                            </tr>
                             @endforeach
+                        </tbody>
+                    </table>
+                    <form method="post" action="{{route('change-state', $order->id)}}">
+                        <div class="controls">
+                            <label>Change state</label>
+                            <select name="state">
+                                @foreach($states as $key => $state)
+                                <option value="{{$key}}" @if($order->state == $key) selected @endif>{{$state}}</option>
+                                @endforeach
+                            </select>
                             @csrf
-                            @method('post')
-                            <div class="col-md-5">
-                                <label>Menu name</label>
-                                <select class="form-control" name="menu_id">
-                                    @foreach($states as $key => $state)
-                                    <option value="{{$key}}">{{$state}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            @method('put')
+                            @if($order->state < 2)
                             <button class="btn btn-outline-danger" type="submit">Change state</button>
-                        </form>
-                    </tbody>
-                </table>
+                            @endif
+                        </div>
+                    </form>
+                </div>
+            </div>
+            @empty
+            <div>No orders<div>
+                    @endforelse
+                </div>
             </div>
         </div>
     </div>
-    @empty
-    <div>No orders<div>
-            @endforelse
-        </div>
-        @endsection
+</div>
+@endsection

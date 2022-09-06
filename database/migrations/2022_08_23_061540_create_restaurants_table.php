@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('restaurant_name', 50);
             $table->string('city', 50);
             $table->string('adress', 50);
-            $table->unsignedBigInteger('menu_id');
+            $table->unsignedBigInteger('menu_id')->default(1);
             $table->foreign('menu_id')->references('id')->on('menus');
             $table->timestamps();
         });

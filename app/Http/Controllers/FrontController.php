@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Restaurant;
 use App\Models\Dish;
 use Illuminate\Http\Request;
+use Auth;
 
 class FrontController extends Controller
 {
@@ -40,7 +41,8 @@ class FrontController extends Controller
         ->select('dishes.dish_name', 'dishes.picture_path','dishes.description', 'menus.menu_name', 'dishes.id')
         ->where('dishes.menu_id', $restaurant->menu_id)
         ->get();
-        return view('front.restaurantMenu', ['menu'=> $menu]);
+        return view('front.restaurantMenu', ['menu'=> $menu, 'restaurant' => $restaurant]);
     }
+   
 
 }

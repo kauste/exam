@@ -103,14 +103,16 @@ class DishController extends Controller
     {
         if($request->picture){
             //istrinam nuotrauka is publicku
-            $pic_asset = $dish->picture_path;
-            $name = pathinfo($pic_asset, PATHINFO_FILENAME);
-            $ext = pathinfo($pic_asset, PATHINFO_EXTENSION);
-            $pic_path = public_path() . '/images/'. $name . '.' .$ext;
-            dump($pic_path );
-            if (file_exists($pic_path)) {
-                unlink($pic_path);
+            if($dish->picture_path){
+                $pic_asset = $dish->picture_path;
+                $name = pathinfo($pic_asset, PATHINFO_FILENAME);
+                $ext = pathinfo($pic_asset, PATHINFO_EXTENSION);
+                $pic_path = public_path() . '/images/'. $name . '.' .$ext;
+                dump($pic_path );
+                if (file_exists($pic_path)) {
+                    unlink($pic_path);
             }
+        }
             //idedam nauja
             $image = $request->file('picture');
             $name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
@@ -139,13 +141,15 @@ class DishController extends Controller
      */
     public function destroy(Dish $dish)
     {
-        $name = pathinfo($dish->picture_path, PATHINFO_FILENAME);
-        $ext = pathinfo($dish->picture_path, PATHINFO_EXTENSION);
-        $path = public_path('/images') . '/' . $name . '.' . $ext;
+        if($dish->picture_path){
+            $name = pathinfo($dish->picture_path, PATHINFO_FILENAME);
+            $ext = pathinfo($dish->picture_path, PATHINFO_EXTENSION);
+            $path = public_path('images') . '/' . $name . '.' . $ext;
 
-        if(file_exists($path)) {
-            unlink($path);
-        } 
+            if(file_exists($path)) {
+                unlink($path);
+            }
+         }
         $dish->delete();
 
         return redirect()->back()->with('deleted', 'Dish is no longer included.');

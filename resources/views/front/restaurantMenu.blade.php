@@ -4,7 +4,8 @@
     <div class="row justify-content-center">
         <div class="card">
             <div class="card-header">
-                <h1>{{$menu[0]->menu_name ?? 'No meniu yet'}}</h1>
+                <h2><b>{{$restaurant->restaurant_name }}</b></h2>
+                <h3>{{$menu[0]->menu_name ?? 'No meniu yet'}}</h3>
             </div>
             <div class="card-body">
                 <table class="table">
@@ -21,7 +22,7 @@
                     @endif
                     <tbody>
                         @forelse($menu as $dish)
-                        <form method="post" action="{{route('add-to-cart', $dish->id)}}">
+                        <form method="post" action="{{route('add-to-cart', [$dish->id, $restaurant->id])}}">
                             <tr classs="align-items">
                                 <td><img class="img" @if($dish->picture_path) src="{{$dish->picture_path}}" @else src="{{asset('/images') . '/like.jpg'}}" @endif ></td>
                                 <td scope="row">{{$dish->dish_name}}</td>

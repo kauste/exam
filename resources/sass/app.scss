@@ -31,3 +31,8 @@ body{
     height:80px;
     object-fit: contain;
 }
+.ord-card-header{
+    display:flex;
+    align-items: baseline;
+    justify-content: space-between;
+}

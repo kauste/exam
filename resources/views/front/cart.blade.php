@@ -12,23 +12,25 @@
                         <tr>
                             <th scope="col">Dish</th>
                             <th cope="col">Amount</th>
+                            <th cope="col">Restaurant</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <form method="post" action="{{route('order')}}">
-                            @foreach($cart as $item)
-                            <tr>
-                                <td scope="row">{{$item['dish_name']}}</td>
-                                <td scope="row">{{$item['amount']}}</td>
-                            </tr>
-                            @endforeach
-
-                            @csrf
-                            @method('post')
-                            <button class="btn btn-outline-danger" type="submit">Order</button>
-                        </form>
+                        @foreach($cart as $item)
+                        <tr>
+                            <td scope="row">{{$item['dish_name']}}</td>
+                            <td scope="row">{{$item['amount']}}</td>
+                            <td scope="row">{{$item['restaurant_name']}}</td>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
+
+                <form method="post" action="{{route('order')}}">
+                    @csrf
+                    @method('post')
+                    <button class="btn btn-outline-danger" type="submit">Order</button>
+                </form>
             </div>
         </div>
     </div>

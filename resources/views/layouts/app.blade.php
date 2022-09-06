@@ -92,8 +92,8 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{route('back-order-list')}}">
-                                Orders
+                            <a id="navbarDropdown" class="nav-link" href="{{route('back-order-list')}}">
+                             My orders
                             </a>
                         </li>
 
@@ -107,6 +107,11 @@
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link" href="{{route('show-cart')}}">
                              Show cart
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link" href="{{route('order-list')}}">
+                             My orders
                             </a>
                         </li>
                         @endif

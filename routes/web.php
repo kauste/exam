@@ -44,6 +44,8 @@ Route::middleware('role:admin')->group(function () {
     Route::delete('/dish/delete/{dish}', [DishController::class, 'destroy'])->name('dish-delete');
 
     Route::get('/back-order-list', [OrderController::class, 'backOrder'])->name('back-order-list');
+    Route::put('/change-state/{id}', [OrderController::class, 'changeState'])->name('change-state');
+    
 });
 Route::put('/dish/update/{dish}', [DishController::class, 'update'])->name('dish-update')->middleware('role:admin');
 
@@ -51,9 +53,14 @@ Route::put('/dish/update/{dish}', [DishController::class, 'update'])->name('dish
 Route::middleware('role:user')->group(function () {
     Route::get('/front-restaurant', [FrontController::class, 'restaurantList'])->name('front-restaurant-list');
     Route::get('/restaurant-menu/{restaurant}', [FrontController::class, 'restaurantMenu'])->name('restaurant-menu');
-    Route::post('/add-to-cart/{id}', [OrderController::class, 'addToCart'])->name('add-to-cart');
+    Route::post('/add-to-cart/{dishId}/{restaurantId}', [OrderController::class, 'addToCart'])->name('add-to-cart');
     Route::get('/show-cart', [OrderController::class, 'showCart'])->name('show-cart');
     Route::post('/order', [OrderController::class, 'order'])->name('order');
+    Route::get('/order-list', [OrderController::class, 'orderList'])->name('order-list');
+    Route::delete('/client-delete-order/{id}', [OrderController::class, 'clientDeleteOrder'])->name('client-delete-order');
+    Route::get('/client-edit-order/{id}', [OrderController::class, 'clientEditOrder'])->name('client-edit-order');
+    Route::delete('/order-item-delete/{orderId}/{dishId}', [OrderController::class, 'orderItemDelete'])->name('order-item-delete');
+    Route::put('/order-item-add/{orderId}', [OrderController::class, 'orderItemAdd'])->name('order-item-add');
 });
 Auth::routes();
 
