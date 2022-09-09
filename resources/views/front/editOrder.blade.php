@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="card col-8 justify-content-center">
             <div class="card-header">
-                <h1>Edit order</h1>
+                <h2 data-order-id="{{$order->id}}">Edit order</h2>
             </div>
             <div class="card-body ">
                 <table class="table">
@@ -21,7 +21,7 @@
                             @foreach($order->cart as $item)
                             <tr>
                                 <td scope="col">{{$item['dish_name'] ?? 'Not availible'}}</td>
-                                <td scope="col-1"><input name="amount-{{$item['dish_id']}}" value="{{$item['amount']}}" </td>
+                                <td scope="col-1"><input name="{{$item['dish_id']}}" value="{{$item['amount']}}" </td>
                                 <td scope="col">{{$item['restaurant'] ?? 'Not availible'}}</td>
                                 <td cope="col">
                                     <form method="post" action="{{route('order-item-delete', [$order->id, $item['dish_id']])}}">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class RestaurantController extends Controller
 {
@@ -38,6 +39,30 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),
+        [
+            'restaurant_name' => ['required', 'min:5','max:50'],
+            'city' => ['required', 'min:5','max:50'],
+            'adress' => ['required', 'min:5','max:50'],
+        ], 
+        [
+            'restaurant_name.required'=> 'Restaurant name is required.',
+            'restaurant_name.min'=> 'Restaurant name should be at least 5 symbols length.',
+            'restaurant_name.max'=> 'Restaurant name should be not longer than 50 symbols.',
+            'city.required'=> 'City is required.',
+            'city.min'=> 'City should be at least 5 symbols length.',
+            'city.max'=> 'City should be not longer than 50 symbols.',
+            'adress.required'=> 'Adress is required.',
+            'adress.min'=> 'Adress should be at least 5 symbols length.',
+            'adress.max'=> 'Adress should be not longer than 50 symbols.',
+
+        ]);
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        };
+
+
         $restaurant = new Restaurant;
         $restaurant->restaurant_name = $request->restaurant_name;
         $restaurant->city = $request->city;
@@ -77,6 +102,29 @@ class RestaurantController extends Controller
      */
     public function update(Request $request, Restaurant $restaurant)
     {
+        $validator = Validator::make($request->all(),
+        [
+            'restaurant_name' => ['required', 'min:5','max:50'],
+            'city' => ['required', 'min:5','max:50'],
+            'adress' => ['required', 'min:5','max:50'],
+        ], 
+        [
+            'restaurant_name.required'=> 'Restaurant name is required.',
+            'restaurant_name.min'=> 'Restaurant name should be at least 5 symbols length.',
+            'restaurant_name.max'=> 'Restaurant name should be not longer than 50 symbols.',
+            'city.required'=> 'City is required.',
+            'city.min'=> 'City should be at least 5 symbols length.',
+            'city.max'=> 'City should be not longer than 50 symbols.',
+            'adress.required'=> 'Adress is required.',
+            'adress.min'=> 'Adress should be at least 5 symbols length.',
+            'adress.max'=> 'Adress should be not longer than 50 symbols.',
+
+        ]);
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+
         $restaurant->restaurant_name = $request->restaurant_name;
         $restaurant->city = $request->city;
         $restaurant->adress = $request->adress;

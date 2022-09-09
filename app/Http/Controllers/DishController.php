@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dish;
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Image;
 
 class DishController extends Controller
@@ -49,6 +50,28 @@ class DishController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),
+        [
+            'dish_name' => ['required', 'min:5','max:50'],
+            'description' => ['required', 'min:20','max:535'],
+            'menu_id' => ['required', 'integer'],
+            'picture'=> ['mimes:jpg,gif,svg,jpeg,png', 'max:2048'],
+        ], 
+        [
+            'dish_name.required'=> 'Dish name is required.',
+            'dish_name.min'=> 'Dish name should be at least 5 symbols length.',
+            'dish_name.max'=> 'Dish name should be not longer than 50 symbols.',
+            'description.required'=> 'description is required.',
+            'description.min'=> 'City should be at least 5 symbols length.',
+            'description.max'=> 'City should be not longer than 535 symbols.',
+            'menu_id.required'=> 'Menu is required.',
+            'menu_id.integer'=> 'Menu is not valid.',
+        ]);
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        };
+
         $dish = new Dish;
         $dish->dish_name = $request->dish_name;
         $dish->description = $request->description;
@@ -101,6 +124,29 @@ class DishController extends Controller
      */
     public function update(Request $request, Dish $dish)
     {
+        $validator = Validator::make($request->all(),
+        [
+            'dish_name' => ['required', 'min:5','max:50'],
+            'description' => ['required', 'min:20','max:535'],
+            'menu_id' => ['required', 'integer'],
+            'picture'=> ['mimes:jpg,gif,svg,jpeg,png', 'max:2048'],
+        ], 
+        [
+            'dish_name.required'=> 'Dish name is required.',
+            'dish_name.min'=> 'Dish name should be at least 5 symbols length.',
+            'dish_name.max'=> 'Dish name should be not longer than 50 symbols.',
+            'description.required'=> 'description is required.',
+            'description.min'=> 'City should be at least 5 symbols length.',
+            'description.max'=> 'City should be not longer than 535 symbols.',
+            'menu_id.required'=> 'Menu is required.',
+            'menu_id.integer'=> 'Menu is not valid.',
+        ]);
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        };
+
+        
         if($request->picture){
             //istrinam nuotrauka is publicku
             if($dish->picture_path){

@@ -43,6 +43,5 @@ class FrontController extends Controller
         ->get();
         return view('front.restaurantMenu', ['menu'=> $menu, 'restaurant' => $restaurant]);
     }
-   
 
 }

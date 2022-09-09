@@ -60,7 +60,7 @@ Route::middleware('role:user')->group(function () {
     Route::delete('/client-delete-order/{id}', [OrderController::class, 'clientDeleteOrder'])->name('client-delete-order');
     Route::get('/client-edit-order/{id}', [OrderController::class, 'clientEditOrder'])->name('client-edit-order');
     Route::delete('/order-item-delete/{orderId}/{dishId}', [OrderController::class, 'orderItemDelete'])->name('order-item-delete');
-    Route::put('/order-item-add/{orderId}', [OrderController::class, 'orderItemAdd'])->name('order-item-add');
+    Route::put('/edit-amounts', [OrderController::class, 'editAmounts'])->name('edit-amounts');
 });
 Auth::routes();
 

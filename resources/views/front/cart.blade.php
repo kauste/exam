@@ -25,12 +25,15 @@
                         @endforeach
                     </tbody>
                 </table>
-
+                @if(count($cart) == 0)
+                <div><i>Your cart is empty</i></div>
+                @else
                 <form method="post" action="{{route('order')}}">
                     @csrf
                     @method('post')
                     <button class="btn btn-outline-danger" type="submit">Order</button>
                 </form>
+                @endif
             </div>
         </div>
     </div>
